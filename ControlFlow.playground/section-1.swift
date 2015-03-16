@@ -10,6 +10,13 @@ for index in 1...5 {
     aArray.append(index * 10)
 }
 
+let someCharacter: Character = "e"
+switch someCharacter {
+    case "a" , "e", "i" :
+        println("\(someCharacter) is a vowel")
+    default:
+        println("\(someCharacter) is not a vowel or a consonant")
+}
 
 
 let individualScores = [75, 43, 103, 87,12]
@@ -78,5 +85,7 @@ var j = 2
 for var i = 0 ; i < 6 ; ++i {
     j += j * i
 }
+
+
 
 

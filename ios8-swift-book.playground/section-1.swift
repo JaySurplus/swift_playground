@@ -26,4 +26,4 @@ messagelabel.clipsToBounds = true
 messagelabel
 
 
-for i = 
+
