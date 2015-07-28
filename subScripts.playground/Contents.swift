@@ -31,7 +31,38 @@ struct Matrix {
         self.columns = columns
         grid = Array(count: rows * columns, repeatedValue: 0.0)
     }
+    
+    func indexIsValidForRow(row: Int, column: Int) -> Bool {
+        return row >= 0 && row < rows && column >= 0 && column < columns
+    }
+    
+    subscript(row : Int , column : Int) -> Double {
+        get {
+            assert(indexIsValidForRow(row, column: column) , "Index out of range")
+            return grid[(row * columns) + column]
+        }
+        set(newGridValue) {
+            assert(indexIsValidForRow(row, column: column), "Index out of range")
+            grid[(row * columns) + column] = newGridValue
+        }
+    }
+    
 }
 
-var aMatrix = Matrix(rows: 4, columns: 5)
-aMatrix.grid
+var aMatrix = Matrix(rows: 2, columns: 2)
+aMatrix[0,1] = 1.5
+aMatrix[1,0] = 3.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
