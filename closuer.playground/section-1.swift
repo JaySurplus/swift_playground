@@ -6,22 +6,24 @@ var str = "Hello, playground"
 
 
 let name = ["Jay","Alex", "Ewa", "Barry", "Daniella"]
-var reserverd = sorted(name , {(s1 : String , s2 : String) -> Bool in return s1 > s2} )
+
+var reserverd = name.sort() {(s1 : String , s2 : String) -> Bool in return s1 > s2}
 
 func backward( s1 : String , s2 : String) -> Bool {
     return s1 < s2
 }
 
-var reserverd2 = sorted(name, backward)
+var reserverd2 = name.sort( backward)
 
-println("Forwards : \(reserverd2)")
-println("Backward : \(reserverd)")
+print("Forwards : \(reserverd2)")
+print("Backward : \(reserverd)")
 
 
-reserverd = sorted( name , { s1 , s2 in return s1 > s2})
-//reserverd = sorted( name , { s1 , s2 in s1 > s2 })
-//reserverd = sorted( name , { $0 > $1 })
-reserverd = sorted( name , > )
+reserverd = name.sort({ s1 , s2 in return s1 > s2})
+reserverd = name.sort({ s1 , s2 in s1 > s2 })
+reserverd = name.sort({ $0 > $1 })
+print(reserverd)
+reserverd = name.sort( < )
 
 
 //Trailing Closeres
@@ -29,14 +31,14 @@ let digitNames = [ 0 : "zero"  , 1 : "one" , 2 : "two" ,
     3 : "Three" , 4 : "four" , 5 : "five" , 6 : "six" , 7 : "seven" , 8 : "eight" , 9 : "nine" ]
 let numbers = [ 11 , 22 ,36]
 
-let strings = numbers.map({(var number) -> String in var output = ""
+let strings = numbers.map(){(var number) -> String in var output = ""
     while number > 0 {
         output = digitNames[number % 10]!  + output
         number /= 10
     }
     return output
-})
-println( strings)
+}
+print( strings)
 
 let double = numbers.map{ (number : Int) -> Int in
     return number * 2
@@ -45,7 +47,7 @@ let double = numbers.map{ (number : Int) -> Int in
 
 
 
-func makeIncrecementor(amount : Int) -> () -> Int {
+func makeIncrecementor(forIncrement amount : Int) -> Void -> Int {
     var runningTotal = 0
     func incrementor() -> Int {
         runningTotal += amount
@@ -55,8 +57,9 @@ func makeIncrecementor(amount : Int) -> () -> Int {
     return incrementor
 }
 
-let incrementByTen = makeIncrecementor(10)
-
+let incrementByTen = makeIncrecementor(forIncrement:10)
+let alsoIncrementByTen = incrementByTen
 incrementByTen()
+alsoIncrementByTen()
 incrementByTen()
 incrementByTen()

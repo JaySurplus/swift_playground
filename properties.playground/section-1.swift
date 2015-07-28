@@ -5,23 +5,29 @@ import UIKit
 var str = "Properties!"
 
 struct FixedLengthRange {
-    var firstValue : Int
-    let length : Int
+    var firstValue: Int
+    let length: Int
 }
 
 var rangeOfThreeItems = FixedLengthRange(firstValue: 0, length: 3)
+print("Length is \(rangeOfThreeItems.length)")
+print("FirstValue is \(rangeOfThreeItems.firstValue)")
 
 rangeOfThreeItems.firstValue = 6
+print("FirstValue now is \(rangeOfThreeItems.firstValue)")
+
 
 let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
-
+print("FirstValue is \(rangeOfFourItems.firstValue)")
 //rangeOfFourItems.firstValue = 6
 
 
-//Lazy stored properties
+
+
 class DataImporter {
-    var fileName = "Data.txt"
+    var fileName = "data.txt"
 }
+
 
 class DataManager {
     lazy var importer = DataImporter()
@@ -31,9 +37,10 @@ class DataManager {
 let manager = DataManager()
 manager.data.append("Some data")
 manager.data.append("Some more data")
-manager
-println(manager.importer.fileName)
-manager
+
+
+print(manager.importer.fileName)
+
 
 
 struct Point {
@@ -44,17 +51,15 @@ struct Size {
     var width = 0.0 , height = 0.0
 }
 
-
 struct Rect {
     var origin = Point()
     var size = Size()
-    var center : Point {
+    var center: Point {
         get {
-            let centerX = origin.x + (size.width/2)
-            let centerY = origin.y + (size.height/2)
-            return Point(x: centerX , y: centerY)
+            let centerX = origin.x + (size.width / 2)
+            let centerY = origin.y + (size.height / 2)
+            return Point(x: centerX, y: centerY)
         }
-        
         set(newCenter) {
             origin.x = newCenter.x - (size.width / 2)
             origin.y = newCenter.y - (size.height / 2)
@@ -62,105 +67,151 @@ struct Rect {
     }
 }
 
-
-
-var square = Rect(origin: Point(x:0.0 , y:0.0), size: Size(width: 10.0, height: 10.0))
-
+var square = Rect(origin: Point(x: 0.0, y: 0.0), size: Size(width: 10.0, height: 10.0))
 let initialSquareCenter = square.center
+print(initialSquareCenter)
+square.center = Point(x: 15.0, y: 15.0)
+print("square.origin is now at (\(square.origin.x), \(square.origin.y))")
 
-square.center = Point(x:15.0 , y:15.0)
 
 
 
-struct Chboid {
+struct AlternativeRect {
+    var origin = Point()
+    var size = Size()
+    var center: Point {
+        get {
+            let centerX = origin.x + (size.width / 2)
+            let centerY = origin.y + (size.height / 2)
+            return Point(x: centerX, y: centerY)
+        }
+        set {
+            origin.x = newValue.x - (size.width / 2)
+            origin.y = newValue.y - (size.height / 2)
+        }
+    }
+}
+
+
+
+struct Cuboid {
     var width = 0.0 , height = 0.0 , depth = 0.0
-    var volume : Double {
+    var volume: Double {
         return width * height * depth
     }
 }
 
-let fourByFiveByTwo = Chboid(width: 4.0, height: 5.0, depth: 2.0)
+let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
 
-fourByFiveByTwo.volume
+print("The volume of fourByFiveByTwo is \(fourByFiveByTwo.volume)")
+
+
+
+
 
 
 class StepCounter {
-    var totalSteps : Int = 0 {
-        willSet(newTotalSteps) {
-            println("New \(newTotalSteps)")
+    var totalSteps: Int = 0 {
+        willSet {
+            print("About to set totalSteps to \(newValue)")
         }
         didSet {
             if totalSteps > oldValue {
-                println("Added \(totalSteps - oldValue)")
+                print("Added \(totalSteps - oldValue) steps")
             }
         }
     }
 }
 
-
-
-let test = StepCounter()
-test.totalSteps = 50
-println(test.totalSteps)
-test.totalSteps = 200
-test.totalSteps
+let stepCounter = StepCounter()
+stepCounter.totalSteps = 200
+stepCounter.totalSteps = 360
+stepCounter.totalSteps = 890
+stepCounter.totalSteps = 800
 
 
 
 struct SomeStructure {
-    static var storeTypeProperty = "Some value."
-    static var computedTypeProperty : Int {
-        return 0
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 1
     }
 }
+
+
+let test = SomeStructure()
+//print(test.computedTypeProperty)
+
 
 
 enum SomeEnumeration {
-    static var storeTypeProperty = "Some value."
-    static var computedTypeProperty : Int {
-        return 0
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 6
     }
 }
+
+
 
 
 
 class SomeClass {
-    class var computedTypeProperty: Int {
-        return 0
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 27
+    }
+    
+    class var overrideableComputedTypeProperty: Int {
+        return 107
     }
 }
 
-println(SomeStructure.storeTypeProperty)
+
+print(SomeStructure.storedTypeProperty)
+SomeStructure.storedTypeProperty = "Another value."
+print(SomeStructure.storedTypeProperty)
+print(SomeStructure.computedTypeProperty)
+
+
+print(SomeEnumeration.computedTypeProperty)
+print(SomeEnumeration.storedTypeProperty)
+SomeEnumeration.storedTypeProperty = "Another value."
+print(SomeEnumeration.storedTypeProperty)
+
+print(SomeClass.storedTypeProperty)
+SomeClass.storedTypeProperty = "Another value"
+print(SomeClass.storedTypeProperty)
+print(SomeClass.computedTypeProperty)
+
+
+
+
 
 
 struct AudioChannel {
     static let thresholdLevel = 10
-    static var maxInput = 0
-    var currentLevel : Int {
+    static var maxInputLevelForAllChannels = 0
+    var currentLevel: Int = 0 {
         didSet {
             if currentLevel > AudioChannel.thresholdLevel {
                 currentLevel = AudioChannel.thresholdLevel
             }
-            
-            if currentLevel > AudioChannel.maxInput {
-               AudioChannel.maxInput = currentLevel
+            if currentLevel > AudioChannel.maxInputLevelForAllChannels {
+                AudioChannel.maxInputLevelForAllChannels = currentLevel
             }
-            
         }
     }
 }
 
+var leftChannel = AudioChannel()
+var rightChannel = AudioChannel()
 
-var rightChannel = AudioChannel(currentLevel: 5)
-var leftChannel = AudioChannel(currentLevel: 7)
-
-println(rightChannel.currentLevel)
-println(leftChannel.currentLevel)
-
+leftChannel.currentLevel = 7
+print(leftChannel.currentLevel)
+print(AudioChannel.maxInputLevelForAllChannels)
 rightChannel.currentLevel = 11
-println(rightChannel.currentLevel)
-
-
+print(rightChannel.currentLevel)
+print(AudioChannel.maxInputLevelForAllChannels)
 
 
 
