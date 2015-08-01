@@ -213,7 +213,62 @@ struct Animal {
 }
 
 
+let someCreatures = Animal(species: "GuoXin")
+if let GuoXin = someCreatures {
+        print("An animial was initialized with a species of \(GuoXin.species)")
+}
 
+
+let GuoXin2 = Animal(species: "")
+GuoXin2?.species
+if GuoXin2 == nil {
+    print("Guoxin could not be initialized")
+}
+
+enum TemperatureUnit {
+    case Kelvin, Celsius , Fahrenheit
+    init?(symbol: Character){
+        switch symbol {
+            case "K":
+                self = .Kelvin
+            case "C":
+                self = .Celsius
+            case "F":
+                self = .Fahrenheit
+        default:
+            return nil
+        }
+    }
+}
+
+
+class Product {
+    let name: String!
+    init?(name:String) {
+        self.name = name
+        if name.isEmpty {return nil}
+    }
+}
+
+let aProd = Product(name:"a")
+aProd!.name
+
+
+class CartTime: Product {
+    let quantity: Int!
+    init?(name: String , quantity: Int){
+        self.quantity = quantity
+        super.init(name: name)
+        print("This product is \(self.name)")
+        if quantity < 1 {return nil}
+    }
+        
+    
+}
+
+if let twoSocks = CartTime(name: "Socks", quantity: 2){
+    print("Item: \(twoSocks.name), quantity: \(twoSocks.quantity)")
+}
 
 
 
