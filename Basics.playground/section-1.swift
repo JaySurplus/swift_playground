@@ -14,7 +14,7 @@ a = b
 let (x, y ) = (1,2)
 
 if x != y {
-    println(x)
+    print(x)
 }
 
 "hello," + "world"
@@ -68,7 +68,7 @@ let hasHeader = false
 let rowHeight = contentHeight + (hasHeader ? 50 : 20)
 
 
-let array:Int[] = [1,2,3,4]
+let array:[Int] = [1,2,3,4]
 let names = ["Anna","Alex","Brain","Jack"]
 let count = names.count
 for i in 0..count {
