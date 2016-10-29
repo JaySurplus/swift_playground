@@ -47,14 +47,14 @@ struct Color {
     
     init(white: Double) {
         red = white
-        green = white
+         green = white
         blue = white
     }
 }
 
 let magenta = Color(red: 1.0 , green:0.0 , blue: 1.0)
 let halfGrey = Color(white:0.5)
-
+print(halfGrey)
 
 class SurveyQuestion {
     var text : String
@@ -105,7 +105,7 @@ struct Point {
 struct Rect {
     var origin = Point()
     var size = Size()
-    init(){}
+    init() {}
     init(origin: Point, size:Size) {
         self.origin = origin
         self.size = size
@@ -176,6 +176,10 @@ let oneMysteryItem = RecipeIngredient()
 let oneBacon = RecipeIngredient(name: "Bacon")
 let sexEggs = RecipeIngredient(name: "Eggs", quantity:6)
 
+print(oneBacon.quantity)
+print(sexEggs.quantity)
+
+
 class ShoppingListItem : RecipeIngredient {
     var purchased = false
     var description: String {
@@ -190,12 +194,12 @@ var breakfastList = [
     ShoppingListItem(),
     ShoppingListItem(name: "Bacon") ,
     ShoppingListItem(name: "Eggs", quantity: 6)
-    
 ]
 
 
 
 breakfastList[0].name = "Orange juice"
+print(breakfastList[0].name)
 breakfastList[0].purchased = true
 for item in breakfastList {
     print(item.description)
@@ -372,6 +376,6 @@ struct CheckerBoard {
 }
 
 let checkboard = CheckerBoard()
-print(checkboard.squareIsBlackAtRow(0, column: 9))
+print(checkboard.squareIsBlackAtRow(row: 0, column: 9))
 
 

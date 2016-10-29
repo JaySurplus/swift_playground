@@ -84,3 +84,12 @@ serverResponseCode = nil
 var surveyAnswer: String?
 
 
+let possibleString: String? = "An optional string."
+let forcedString: String = possibleString!
+
+let assumedString: String! = "An implicitly unwrapped optional string."
+let implicitString: String = assumedString
+
+let age = -3
+assert(age < 0)
+

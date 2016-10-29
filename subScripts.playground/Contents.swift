@@ -6,7 +6,6 @@ var str = "Subscripts"
 
 
 
-
 struct TimesTable {
     let multiplier: Int
     subscript(index: Int) -> Int {
@@ -15,54 +14,46 @@ struct TimesTable {
 }
 
 let threeTimesTable = TimesTable(multiplier: 3)
-print("Six times three is \(threeTimesTable[6])")
+print("six times three is \(threeTimesTable[5])")
 
-var numberOfLegs = ["spider": 8 , "ant": 6, "cat":4]
-numberOfLegs["bird"] = 2
-print(numberOfLegs)
+print(threeTimesTable)
 
-
+var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
+numberOfLegs["birds"] = 2
+numberOfLegs["spider"]
 
 struct Matrix {
-    let rows: Int, columns:Int
+    let rows: Int, columns: Int
     var grid: [Double]
-    init(rows: Int, columns:Int) {
+    
+    init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        grid = Array(count: rows * columns, repeatedValue: 0.0)
+        grid = Array(repeating: 0.0, count: rows * columns)
     }
     
-    func indexIsValidForRow(row: Int, column: Int) -> Bool {
+    func indexIsValid(row: Int, column: Int) -> Bool {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
     
-    subscript(row : Int , column : Int) -> Double {
+    subscript(row: Int, column: Int) -> Double {
         get {
-            assert(indexIsValidForRow(row, column: column) , "Index out of range")
+            assert(indexIsValid(row: row, column: column),
+                   "Index out of range")
             return grid[(row * columns) + column]
         }
-        set(newGridValue) {
-            assert(indexIsValidForRow(row, column: column), "Index out of range")
-            grid[(row * columns) + column] = newGridValue
+        
+        set {
+            assert(indexIsValid(row: row, column: column),
+                   "Index out of range")
+            grid[(row * columns) + column] = newValue
         }
     }
     
+    
 }
 
-var aMatrix = Matrix(rows: 2, columns: 2)
-aMatrix[0,1] = 1.5
-aMatrix[1,0] = 3.2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var testMatrix = Matrix(rows: 4, columns: 4)
+print(testMatrix[3,3])
+testMatrix[3,3] = 3
+print(testMatrix[3,3])
